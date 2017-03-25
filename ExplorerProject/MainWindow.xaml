@@ -28,7 +28,7 @@
 
 	<DockPanel LastChildFill="True" Margin="10">
 		<DockPanel LastChildFill="True" DockPanel.Dock="Top">
-			<Button x:Name="btnFileChoice" Content="..." Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5 0 0 0" DockPanel.Dock="Right"/>
+			<Button x:Name="btnFileChoice" Content="..." Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5 0 0 0" DockPanel.Dock="Right" Click="btnFileChoice_Click"/>
 			<TextBox x:Name="tbFilePath" Text="{Binding PathProperty}"/>
 		</DockPanel>
 		<Grid Margin="0 10 0 0">

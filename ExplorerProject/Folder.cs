@@ -47,18 +47,15 @@ namespace ExplorerProject
 
 			var dirInfo = new DirectoryInfo(path);
 
-
-
 			foreach (var directory in dirInfo.GetDirectories())
 			{
-
 				var folder = new DirectoryFolder
 				{
 					Name = directory.Name,
 					Path = directory.FullName,
 					IsChecked = false,
 					picture = "folder.png",
-				Folders = GetFolders(directory.FullName)
+					Folders = GetFolders(directory.FullName)
 				};
 
 				items.Add(folder);
@@ -71,13 +68,11 @@ namespace ExplorerProject
 					Name = file.Name,
 					Path = file.FullName,
 					IsChecked = false
-					
+
 				};
 
 				items.Add(item);
 			}
-
-
 
 			return items;
 		}

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace ExplorerProject
 {
@@ -25,12 +26,9 @@ namespace ExplorerProject
 		{
 			InitializeComponent();
 
-			var folderProvider = new FolderProvider();
+			PopulateTreeView();
 
-			var folders = folderProvider.GetFolders(PathProperty);
-
-			this.Loaded += MainWindow_Loaded;
-			treeView.DataContext = folders;
+			
 		}
 
 		public void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -38,7 +36,15 @@ namespace ExplorerProject
 			this.DataContext = this;
 		}
 
+		private void PopulateTreeView()
+		{
+			var folderProvider = new FolderProvider();
 
+			var folders = folderProvider.GetFolders(PathProperty);
+
+			this.Loaded += MainWindow_Loaded;
+			treeView.DataContext = folders;
+		}
 
 		public string PathProperty
 		{
@@ -50,5 +56,26 @@ namespace ExplorerProject
 		public static readonly DependencyProperty PathPropertyProperty =
 			DependencyProperty.Register("PathProperty", typeof(string), typeof(MainWindow), new PropertyMetadata(AppDomain.CurrentDomain.BaseDirectory));
 
+		private void btnFileChoice_Click(object sender, RoutedEventArgs e)
+		{
+			ChooseFolder();
+		}
+
+		public void ChooseFolder()
+		{
+
+			using (var fbd = new FolderBrowserDialog())
+			{
+				DialogResult result = fbd.ShowDialog();
+
+				if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+				{
+					PathProperty = fbd.SelectedPath;
+					PopulateTreeView();
+					//string[] files = Directory.GetFiles(fbd.SelectedPath);
+					//System.Windows.Forms.MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+				}
+			}
+		}
 	}
 }
